@@ -17,14 +17,17 @@
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     writePin(LED1, record->event.pressed);
-    writePin(LED2, record->event.pressed);
     return process_record_user(keycode, record);
 }
-/*
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    writePinLow(LED1);
-    writePin(LED2, state);
+    if (get_highest_layer(state) > 0) {
+        // LED2 on when layer active
+        writePinLow(LED1);
+        writePin(LED2, state);
+    } else {
+        // LED2 off when layer not active
+        writePinLow(LED2);
+    }
 
     return layer_state_set_user(state);
 }
-*/
